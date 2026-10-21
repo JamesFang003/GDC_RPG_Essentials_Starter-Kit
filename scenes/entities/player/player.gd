@@ -3,13 +3,16 @@ extends CharacterBody2D
 enum State {IDLE,RUN,ATTACK,DEAD}
 var state:State = State.IDLE
 
+@export var health:int = 100
+@export var attack_damage = 50
 var speed:float = 300.0
 const JUMP_VELOCITY = -400.0
-var attack_speed = 0.6
+@export var attack_speed = 0.6
 @onready var input: InputComponent = $InputComponent
 
 @onready var animination_tree: AnimationTree = $AnimationTree
 @onready var animination_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
+@export var death_packed:PackedScene 
 
 func _ready() -> void:
 	animination_tree.set_active(true)
@@ -57,12 +60,26 @@ func attack() -> void:
 	
 	var mouse_pos = get_global_mouse_position()
 	var attack_dir = (mouse_pos-global_position).normalized()
-	print(mouse_pos)
-	print(attack_dir)
 	$Sprite2D.flip_h = (attack_dir.x < 0) and abs(attack_dir.x) >= abs(attack_dir.y)
+	$Hitbox.scale.x = -1 if attack_dir.x < 0 else 1
 	animination_tree.set("parameters/attack/BlendSpace2D/blend_position", attack_dir)
 	update_animation()
 	
 	await get_tree().create_timer(attack_speed).timeout
 	state = State.IDLE
 	print("Idle")
+
+func take_damage(damage_taken:int) -> void:
+	print(damage_taken)
+	health -= damage_taken
+	if health <= 0:
+		death()
+
+func death() -> void:
+	var death_scene: Node2D = death_packed.instantiate()
+	death_scene.position = global_position+Vector2(0.0,-32.0)
+	%Effects.add_child(death_scene)
+	queue_free()
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	area.owner.take_damage(attack_damage)

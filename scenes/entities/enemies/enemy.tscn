@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://chitueix41ebu"]
+[gd_scene format=3 uid="uid://0yr8pva6gl78"]
 
-[ext_resource type="Script" uid="uid://eef28st8rog3" path="res://player.gd" id="1_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://dd14yvscw8gcd" path="res://assets/sprites/player/Warrior_Blue.png" id="2_hqtel"]
-[ext_resource type="Script" uid="uid://bc3dhiyc86x56" path="res://scripts/inputComponent.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://cg5nvio2eojui" path="res://scenes/entities/enemies/enemy.gd" id="1_c8ylr"]
+[ext_resource type="PackedScene" uid="uid://borgursufx7ji" path="res://scenes/effects/death.tscn" id="2_gflvi"]
+[ext_resource type="Texture2D" uid="uid://ylse6gpvtwpm" path="res://assets/sprites/enemies/Warrior_Red.png" id="2_pm80n"]
+[ext_resource type="Script" uid="uid://bc3dhiyc86x56" path="res://scripts/inputComponent.gd" id="3_23bjx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3jgn"]
 radius = 23.021729
@@ -38,6 +39,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [24, 25, 26, 27, 28, 29, 24]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.20427586, 0.30334967),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.20427586, 0.30334967),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(42, 15), Vector2(-38, 19)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.20427586, 0.30334967),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.185496, 3.9200501]
+}
 
 [sub_resource type="Animation" id="Animation_2hs0m"]
 resource_name = "attack_right"
@@ -55,6 +92,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [12, 13, 14, 15, 16, 17]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.20427585, 0.3023283),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.20223309, 0.3023283),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(22, -83), Vector2(22, -83), Vector2(64, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.20223309, 0.3023283),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 2.0263274]
+}
 
 [sub_resource type="Animation" id="Animation_dw050"]
 resource_name = "attack_up"
@@ -71,6 +144,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [36, 37, 38, 39, 40, 41]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.20121174, 0.29824278),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.20529723, 0.3013069),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-42, -68), Vector2(47, -60)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.20529723, 0.3013069),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.6360087, 0.9797736]
 }
 
 [sub_resource type="Animation" id="Animation_hqtel"]
@@ -149,7 +258,7 @@ blend_point_3/name = &"attack_down"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_bwjto"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_606se"]
-graph_offset = Vector2(-311.7315, 32.076427)
+graph_offset = Vector2(-55.391747, 172.51067)
 nodes/output/position = Vector2(592, 192)
 nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_urp6f")
 nodes/BlendSpace2D/position = Vector2(64, 144)
@@ -187,12 +296,22 @@ states/run/node = SubResource("AnimationNodeAnimation_dw050")
 states/run/position = Vector2(470.8, 42.400005)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_b26j0"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_n7ghd"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_nvl01"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_u1c27"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_op7ga"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_q13i1")]
 
-[node name="Player" type="CharacterBody2D" unique_id=1565648182]
-script = ExtResource("1_i3pqv")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t3jgn"]
+radius = 21.0
+height = 70.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm80n"]
+size = Vector2(16.25, 43.84374)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1565648182]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_c8ylr")
+death_packed = ExtResource("2_gflvi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=148943345]
 position = Vector2(0, -32)
-texture = ExtResource("2_hqtel")
+texture = ExtResource("2_pm80n")
 hframes = 6
 vframes = 8
 
@@ -202,7 +321,7 @@ shape = SubResource("CircleShape2D_t3jgn")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1676914002]
 
 [node name="InputComponent" type="Node" parent="." unique_id=2117040665]
-script = ExtResource("3_sweqy")
+script = ExtResource("3_23bjx")
 metadata/_custom_type_script = "uid://bc3dhiyc86x56"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=403869153]
@@ -214,3 +333,37 @@ tree_root = SubResource("AnimationNodeStateMachine_t3jgn")
 anim_player = NodePath("../AnimationPlayer")
 parameters/attack/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/attack/TimeScale/scale = 1.0
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1641459805]
+collision_layer = 16
+collision_mask = 0
+input_pickable = false
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=797791259]
+position = Vector2(0, -29)
+shape = SubResource("CapsuleShape2D_t3jgn")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2008917866 groups=["player"]]
+collision_layer = 0
+collision_mask = 32
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=318998121]
+position = Vector2(42, 15)
+rotation = 2.185496
+shape = SubResource("RectangleShape2D_pm80n")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1792734581]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 48.0
+neighbor_distance = 128.0
+max_speed = 128.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0.01999998, 0.01999998, 1)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
