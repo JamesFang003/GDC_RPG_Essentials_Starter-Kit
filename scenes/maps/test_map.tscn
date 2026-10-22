@@ -478,5 +478,11 @@ position = Vector2(393, 909)
 [node name="Enemy" parent="Enemies" unique_id=915195032 instance=ExtResource("17_pphbs")]
 position = Vector2(880, 460)
 
+[node name="Enemy2" parent="Enemies" unique_id=868852096 instance=ExtResource("17_pphbs")]
+position = Vector2(731, 399)
+
+[node name="Enemy3" parent="Enemies" unique_id=2053345245 instance=ExtResource("17_pphbs")]
+position = Vector2(1126, 267)
+
 [node name="Effects" type="Node2D" parent="." unique_id=418080211]
 unique_name_in_owner = true

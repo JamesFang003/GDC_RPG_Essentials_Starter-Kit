@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died(exp:int)
+
 enum State {IDLE,CHASE,RETURN,ATTACK,DEAD}
 var state:State = State.IDLE
 
@@ -9,6 +11,7 @@ var state:State = State.IDLE
 @export var attack_speed:float = 1
 @export var aggro_range:float = 256.0
 @export var attack_range:float = 80.0
+@export var experience:int = 600
 
 @export var death_packed:PackedScene 
 @onready var animination_tree: AnimationTree = $AnimationTree
@@ -75,11 +78,11 @@ func attack() -> void:
 	animination_tree.set("parameters/attack/BlendSpace2D/blend_position", attack_dir)
 	update_animation()
 	
-	print("Animation state: ", animination_tree.get("parameters/playback").get_current_node())
+	#print("Animation state: ", animination_tree.get("parameters/playback").get_current_node())
 	
 	await get_tree().create_timer(attack_speed).timeout
 	state = State.IDLE
-	print("Idle")
+	#print("Idle")
 
 func update_animation() -> void:
 	match state:
@@ -93,7 +96,7 @@ func update_animation() -> void:
 			animination_playback.travel("attack")
 
 func take_damage(damage_taken:int) -> void:
-	print(damage_taken)
+	#print(damage_taken)
 	health -= damage_taken
 	if health <= 0:
 		death()
@@ -102,6 +105,7 @@ func death() -> void:
 	var death_scene: Node2D = death_packed.instantiate()
 	death_scene.position = global_position+Vector2(0.0,-32.0)
 	%Effects.add_child(death_scene)
+	died.emit(experience)
 	queue_free()
 
 

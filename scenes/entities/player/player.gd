@@ -7,7 +7,7 @@ var state:State = State.IDLE
 @export var attack_damage = 50
 var speed:float = 300.0
 const JUMP_VELOCITY = -400.0
-@export var attack_speed = 0.6
+var attack_speed = 0.6
 @onready var input: InputComponent = $InputComponent
 
 @onready var animination_tree: AnimationTree = $AnimationTree
@@ -16,6 +16,7 @@ const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
 	animination_tree.set_active(true)
+	calculate_stats()
 
 func _physics_process(_delta: float) -> void:
 	if state!= State.ATTACK:
@@ -55,7 +56,7 @@ func update_animation() -> void:
 func attack() -> void:
 	if state == State.ATTACK:
 		return
-	print("Attacking")
+	#print("Attacking")
 	state = State.ATTACK
 	
 	var mouse_pos = get_global_mouse_position()
@@ -67,10 +68,10 @@ func attack() -> void:
 	
 	await get_tree().create_timer(attack_speed).timeout
 	state = State.IDLE
-	print("Idle")
+	#print("Idle")
 
 func take_damage(damage_taken:int) -> void:
-	print(damage_taken)
+	#print(damage_taken)
 	health -= damage_taken
 	if health <= 0:
 		death()
@@ -83,3 +84,9 @@ func death() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	area.owner.take_damage(attack_damage)
+
+func calculate_stats() -> void:
+	attack_speed = Equations.calculate_attack_speed()
+	var time_factor:float = Equations.BASE_ATTACK_SPEED / attack_speed
+	animination_tree.set("parameters/attack/TimeScale/scale",time_factor)
+	print(attack_speed)
