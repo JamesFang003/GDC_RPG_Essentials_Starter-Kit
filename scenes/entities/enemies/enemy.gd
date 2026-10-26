@@ -7,7 +7,7 @@ var state:State = State.IDLE
 
 @export var health:int = 100
 @export var speed:int = 128
-@export var attack_damage:int = 20
+@export var attack_damage:int = 10
 @export var attack_speed:float = 1
 @export var aggro_range:float = 256.0
 @export var attack_range:float = 80.0

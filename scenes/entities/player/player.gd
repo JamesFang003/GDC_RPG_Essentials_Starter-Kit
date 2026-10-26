@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal game_over(victorious:bool)
+signal update_hp(health:int)
+
 enum State {IDLE,RUN,ATTACK,DEAD}
 var state:State = State.IDLE
 
@@ -73,6 +76,7 @@ func attack() -> void:
 func take_damage(damage_taken:int) -> void:
 	#print(damage_taken)
 	health -= damage_taken
+	update_hp.emit(health)
 	if health <= 0:
 		death()
 
@@ -81,6 +85,7 @@ func death() -> void:
 	death_scene.position = global_position+Vector2(0.0,-32.0)
 	%Effects.add_child(death_scene)
 	queue_free()
+	game_over.emit(false)
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	area.owner.take_damage(attack_damage)
