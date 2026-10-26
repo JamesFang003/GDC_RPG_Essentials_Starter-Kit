@@ -6,7 +6,7 @@ signal update_hp(health:int)
 enum State {IDLE,RUN,ATTACK,DEAD}
 var state:State = State.IDLE
 
-@export var health:int = 100
+#@export var health:int = 100
 @export var attack_damage = 50
 var speed:float = 300.0
 const JUMP_VELOCITY = -400.0
@@ -16,6 +16,7 @@ var attack_speed = 0.6
 @onready var animination_tree: AnimationTree = $AnimationTree
 @onready var animination_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @export var death_packed:PackedScene 
+@onready var healthComponent: HealthComponent = $HealthComponent
 
 func _ready() -> void:
 	animination_tree.set_active(true)
@@ -75,9 +76,9 @@ func attack() -> void:
 
 func take_damage(damage_taken:int) -> void:
 	#print(damage_taken)
-	health -= damage_taken
-	update_hp.emit(health)
-	if health <= 0:
+	var current_health = healthComponent.take_damage(damage_taken)
+	update_hp.emit(current_health)
+	if current_health <= 0:
 		death()
 
 func death() -> void:

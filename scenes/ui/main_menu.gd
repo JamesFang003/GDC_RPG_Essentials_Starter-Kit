@@ -2,7 +2,7 @@ extends Control
 
 signal new_game_pressed(origin:String)
 signal settings_pressed(origin:String)
-signal about_pressed(origin:String)
+signal load_pressed(origin:String)
 signal exit_pressed(origin:String)
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +20,5 @@ func _on_settings_pressed() -> void:
 func _on_exit_pressed() -> void:
 	exit_pressed.emit("main_menu")
 
-
-func _on_about_pressed() -> void:
-	about_pressed.emit("main_menu")
+func _on_load_game_pressed() -> void:
+	load_pressed.emit("main_menu")

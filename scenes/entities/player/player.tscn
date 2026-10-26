@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://eef28st8rog3" path="res://scenes/entities/player/player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://dd14yvscw8gcd" path="res://assets/sprites/player/Warrior_Blue.png" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://borgursufx7ji" path="res://scenes/effects/death.tscn" id="2_nh4ur"]
-[ext_resource type="Script" uid="uid://bc3dhiyc86x56" path="res://scripts/inputComponent.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://bc3dhiyc86x56" path="res://scripts/classes/inputComponent.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://blgm5tn8edqgw" path="res://scripts/classes/HealthComponent.gd" id="5_bjvvg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t3jgn"]
 radius = 23.021729
@@ -406,5 +407,9 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1275115091]
 position = Vector2(0, -29)
 shape = SubResource("CapsuleShape2D_58kc7")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=394669484]
+script = ExtResource("5_bjvvg")
+metadata/_custom_type_script = "uid://blgm5tn8edqgw"
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

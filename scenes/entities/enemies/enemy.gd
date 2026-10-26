@@ -5,7 +5,7 @@ signal died(exp:int)
 enum State {IDLE,CHASE,RETURN,ATTACK,DEAD}
 var state:State = State.IDLE
 
-@export var health:int = 100
+#@export var health:int = 100
 @export var speed:int = 128
 @export var attack_damage:int = 10
 @export var attack_speed:float = 1
@@ -19,9 +19,16 @@ var state:State = State.IDLE
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var spawn_point:Vector2 = global_position
 @onready var nav_agent:NavigationAgent2D = $NavigationAgent2D
+@onready var healthComponent: HealthComponent = $HealthComponent
+
+var navigation_ready := false
 
 func _ready() -> void:
 	animination_tree.set_active(true)
+	var map = nav_agent.get_navigation_map()
+	if NavigationServer2D.map_get_iteration_id(map) == 0:
+		await get_tree().physics_frame
+	navigation_ready = true
 
 func _physics_process(_delta: float) -> void:
 	movement_loop()
@@ -29,9 +36,14 @@ func _physics_process(_delta: float) -> void:
 func movement_loop() -> void:
 	if state==State.DEAD or state==State.ATTACK:
 		return
-	var distance:float
-	if player!=null:
-		distance = global_position.distance_to(player.position)
+	
+	if not is_instance_valid(player):
+		var current_player := get_player()
+		if not is_instance_valid(current_player):
+			return
+	
+	var distance:float = global_position.distance_to(player.position)
+
 	if distance <= attack_range:
 		state=State.ATTACK
 		attack()
@@ -46,10 +58,14 @@ func movement_loop() -> void:
 		update_animation()
 	
 func move() -> void:
+	if not navigation_ready:
+		return
+	
 	if state == State.CHASE:
 		nav_agent.target_position=player.global_position
 	elif state == State.RETURN:
 		nav_agent.target_position=spawn_point
+		
 	var next_path_position:Vector2 = nav_agent.get_next_path_position()
 	velocity = global_position.direction_to(next_path_position)*speed
 	
@@ -97,8 +113,8 @@ func update_animation() -> void:
 
 func take_damage(damage_taken:int) -> void:
 	#print(damage_taken)
-	health -= damage_taken
-	if health <= 0:
+	var current_health = healthComponent.take_damage(damage_taken)
+	if current_health <= 0:
 		death()
 
 func death() -> void:
@@ -115,3 +131,8 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	nav_agent.velocity = safe_velocity
+	
+func get_player() -> CharacterBody2D:
+	if not is_instance_valid(player):
+		player = get_tree().get_first_node_in_group("player") as CharacterBody2D
+	return player

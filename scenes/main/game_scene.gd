@@ -45,7 +45,7 @@ func display_end_game_screen(victorious:bool) -> void:
 	end_menu.victorious = victorious
 	
 	var scene_handler = get_node("/root/SceneHandler")
-	end_menu.repeat.connect(scene_handler.new_game)
+	end_menu.repeat.connect(scene_handler.replay_game)
 	end_menu.main_menu.connect(scene_handler.load_main_menu)
 	$UI.add_child(end_menu)
 	#game_end = true
