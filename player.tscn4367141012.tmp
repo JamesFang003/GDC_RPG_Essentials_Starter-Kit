@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://chitueix41ebu"]
+
+[ext_resource type="Script" uid="uid://eef28st8rog3" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dd14yvscw8gcd" path="res://assets/sprites/player/Warrior_Blue.png" id="2_hqtel"]
+[ext_resource type="Script" uid="uid://bc3dhiyc86x56" path="res://scripts/inputComponent.gd" id="3_sweqy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t3jgn"]
+radius = 23.021729
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hqtel"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.39999998, 0.49999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_sweqy"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.39999998, 0.49999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hs0m"]
+_data = {
+&"RESET": SubResource("Animation_i3pqv"),
+&"idle": SubResource("Animation_hqtel"),
+&"run": SubResource("Animation_sweqy")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jxqw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dw050"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b26j0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n7ghd"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvl01"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t3jgn"]
+states/idle/node = SubResource("AnimationNodeAnimation_1jxqw")
+states/idle/position = Vector2(311.6, 80.8)
+states/run/node = SubResource("AnimationNodeAnimation_dw050")
+states/run/position = Vector2(415.59998, 81.600006)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_b26j0"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_n7ghd"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_nvl01")]
+
+[node name="Player" type="CharacterBody2D" unique_id=1565648182]
+script = ExtResource("1_i3pqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=148943345]
+position = Vector2(0, -32)
+texture = ExtResource("2_hqtel")
+hframes = 6
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=818747457]
+shape = SubResource("CircleShape2D_t3jgn")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1676914002]
+
+[node name="InputComponent" type="Node" parent="." unique_id=2117040665]
+script = ExtResource("3_sweqy")
+metadata/_custom_type_script = "uid://bc3dhiyc86x56"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=403869153]
+libraries/ = SubResource("AnimationLibrary_2hs0m")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1972275907]
+tree_root = SubResource("AnimationNodeStateMachine_t3jgn")
+anim_player = NodePath("../AnimationPlayer")

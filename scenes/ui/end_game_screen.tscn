@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://q1cojgue0i41"]
+
+[ext_resource type="Script" uid="uid://cgcwip7mbpetr" path="res://scenes/ui/end_game_screen.gd" id="1_svl4o"]
+[ext_resource type="FontFile" uid="uid://d00h4ctsh5ohj" path="res://assets/fonts/PirataOne-Regular.ttf" id="2_x8rbx"]
+[ext_resource type="Texture2D" uid="uid://dd5chn7mty8ao" path="res://assets/ui/buttons/Button_Blue_3Slides.png" id="3_grgci"]
+[ext_resource type="Texture2D" uid="uid://t6ugsh3rd7ag" path="res://assets/ui/buttons/Button_Blue_3Slides_Pressed.png" id="4_2dauq"]
+[ext_resource type="Texture2D" uid="uid://crpe6wlm1i2bo" path="res://assets/ui/buttons/Button_Hover_3Slides.png" id="5_fuhln"]
+
+[node name="EndGameScreen" type="Control" unique_id=1331104929]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_svl4o")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=436780183]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4745098)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=716781914]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="Result" type="Label" parent="VBoxContainer" unique_id=1911703047]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.70980394)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("2_x8rbx")
+theme_override_font_sizes/font_size = 164
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=509416133]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 150
+
+[node name="Replay" type="TextureButton" parent="VBoxContainer/HBoxContainer" unique_id=737556383]
+custom_minimum_size = Vector2(450, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_grgci")
+texture_pressed = ExtResource("4_2dauq")
+texture_hover = ExtResource("5_fuhln")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Replay" unique_id=1796893041]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.5
+offset_right = 107.5
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.70980394)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("2_x8rbx")
+theme_override_font_sizes/font_size = 60
+text = "Replay"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenu" type="TextureButton" parent="VBoxContainer/HBoxContainer" unique_id=41965860]
+custom_minimum_size = Vector2(450, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_grgci")
+texture_pressed = ExtResource("4_2dauq")
+texture_hover = ExtResource("5_fuhln")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MainMenu" unique_id=859061474]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.5
+offset_right = 107.5
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.70980394)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("2_x8rbx")
+theme_override_font_sizes/font_size = 60
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
